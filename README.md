@@ -1,4 +1,4 @@
-## Kubernetes auto-deployments (EXPERIMENTAL)
+## Kubernetes auto-deployments
 
 This is a repository that builds a Docker Image with all scripts needed to
 deploy to Kubernetes from GitLab CI.
@@ -58,22 +58,11 @@ of format: `postgres://user:password@postgres-host:postgres-port/postgres-databa
 You can see existing working examples:
 1. [Ruby](https://gitlab.com/gitlab-examples/ruby-openshift-example/)
 
-### How to contribute?
-
-Simply fork this repository. As soon as you push your changes,
-the new docker image with all scripts will be built.
-You can then start using your own docker image hosted on your Container Registry.
-
 ### How to use it?
 
 Basically, configure the Kubernetes Service in your project settings and
-copy-paste [this `.gitlab-ci.yml`](https://gitlab.com/gitlab-org/gitlab-ci-yml/blob/master/autodeploy/Kubernetes.gitlab-ci.yml).
+copy-paste (https://gitlab.com/gitlab-org/gitlab-ci-yml/blob/master/autodeploy/Kubernetes.gitlab-ci.yml).
 
 ### Remarks
 
 This project uses latest version of `kubectl` in order to fix problems with `kubectl rollout status`.
-As of today it is `v1.7.0-alpha-3`.
-
-### License
-
-MIT, GitLab, 2016-2017
