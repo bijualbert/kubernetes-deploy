@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+	SOURCE="$(readlink "$SOURCE")"
+	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+
+export DEPLOY_ROOT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+source "$DEPLOY_ROOT_DIR/src/common.bash"
+
+echo "Checking docker engine..."
+ensure_docker_engine
+
+echo "Running tests for application using gitlab-org/herokuish docker image..."
+docker run --rm \
+  -v "$(pwd):/tmp/app:ro" \
+  -v "/cache/herokuish:/tmp/cache" \
+  registry.gitlab.com/gitlab-org/herokuish /bin/herokuish buildpack test
+echo ""
